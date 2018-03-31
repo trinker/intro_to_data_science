@@ -1,0 +1,225 @@
+---
+title: "Introduction to Data Analysis"
+author: "Campus Labs"
+date: "`r format(Sys.Date(), format = '%B %d, %Y')`"
+header-includes:
+   - \usepackage[table]{xcolor}
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+    fig_caption: false
+urlcolor: blue   
+linkcolor: magenta
+---
+
+# Overview 
+
+This is an introductory data analysis course.  The primary goal of the course is to be able to answer elementary product data questions.  We will be using [R](https://en.wikipedia.org/wiki/R_(programming_language)) and [SQL](https://en.wikipedia.org/wiki/SQL) to accomplish this goal.  
+
+The three primary focci of the course are:
+
+- Data Visualization
+- Data Structuring
+- Data Collection
+
+# Approach
+
+I learned to play guitar in my late teens.  I remember buying a book that had me start with scales and progressing through some kiddie folk songs like *Twinkle, Twinkle Little Star*, and finally ending with playing *Tom Dooley*.  This was absolute torture.  I never made it past page 3.  Thankfully, the Internet was in it's infancy at this time but I was able to find music for Tom Petty's *Free Falling*.  I started with a song I wanted to play and learned the chords to play it.  It was a manageable song, not some Jimmy Page solo, but something meaningful & acheivable.  I had success quickly which in turn motivated me to learn more.  Eventually, I learned the Page solos too.  I remember this experience when I am teaching others.
+
+I take the educational stance that true learning happens around problems we're motivated to solve.  We figure out what we want to do and then get the language, knowledge, and skills necessary to accomplish this goal.  This is a top down approach.  Often data analysis courses have the participants pass through a progressive series of steps, starting with a "Hello World" excerise and building up with a grand finale capstone project.  The progression is boring and the final project is often unrelated to the problems the student actually wants to solve.  Sounds like a "scales and *Tom Dooley*" approach to me.  I take the opposite approach.  The course assumes that the participants have questions about product data that they would like to answer quickly.  This is where the course will begin.  Theory and skills will be woven into the process in a "just in time" fashion.
+
+Secondly, I take the stance that struggle is a requiste for learning.  Please don't confuse fustration and struggle.  The former is not productive but the latter is essential.  If you haven't struggled, I'd venture to say you haven't really learned anything of value.  Learning something new is a series of inner dialogue feedback loops.  We ask a question, learn about that for a bit.  We are usually just learning what are the right words to Google.  This first pass snowballs new questions, things we didn't know we needed to ask before.  And this recursive process ends when we're satisfied that we've learned what we set out to learn originally (or we've determined it wasn't really worth the investment).  This course will not give you all the language, knowledge, and skills you need to analyze your problems.  Instead, it will give you the most important language, the most relevant knowledge, and the most generalizable skills.  This will help to avoid fustration but not the struggle.  
+
+
+# Required Texts
+
+We will be using the following texts for the course.  
+
+1. Grolemund, G. & Wickham, H. (2016). [*R for Data Science*](http://r4ds.had.co.nz/). Retrieved from http://r4ds.had.co.nz
+1. Wickham, H. (2016). *ggplot2: Elegant Graphics for Data Analysis*.  New York: Springer. Retieved from https://github.com/hadley/ggplot2-book
+
+Additionally, we will read from articles, blogs, & cheatsheets.  All of the reading materials are provided.
+
+# Course Schedule
+
+This course is based around 7 modules. 
+
+1. Intro to R
+1. Data Tranforming
+1. Data Visualization
+1. Exploratory Data Analysis (EDA)
+1. Data Tidying
+1. Data Import/Export (R \& SQL)
+
+
+Modules vary in size and scope and have a series of interactive lectures attached to them.  This is the schedule for lectures.
+
+
+
+
+\newpage
+
+\begin{tabular}{ | l | p{5cm} | p{6cm} | p{4cm} | }
+    \hline
+    \multicolumn{4}{ |l| }{\cellcolor{gray!25} \textbf{Module 1: Intro to R}} \\
+    \hline
+     \textbf{Day} & \textbf{Topic}        & \textbf{Reading}                   & \textbf{Assignment} \\ \hline
+                0 & Install Course Tools  &  \textbullet Syllabus                   & \hyperref[installation]{\textbullet Install R, Rstudio, \&} \\
+                  &                       &  \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 1} & \hspace{.15cm} \hyperref[installation]{SQL Ops}  \\  
+    \hline
+                1 & R, RStudio, \& Visualization  &  \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 3 \& 5}  & \textbullet \hyperref[assignments]{Assignment 1} \\
+                  &                       & \textbullet \href{https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf}{R: Base R} - Maths Functions Section &  \\                  
+                              
+    \hline 
+    
+    \multicolumn{4}{ |l| }{\cellcolor{gray!25} \textbf{Module 2: Data Tranforming}} \\
+    \hline
+     \textbf{Day} & \textbf{Topic}        & \textbf{Reading}                   & \textbf{Assignment} \\ \hline
+                2 & Filter, Select, Arrange, \& Mutate    & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 5}  & \textbullet \hyperref[assignments]{Assignment 2} \\
+                  &                       & \textbullet \href{https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf}{R: Transformations Cheatsheet} &  \\  
+    \hline
+                3 & Mutate, Summarize, \& Group By   & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 3}  & \textbullet \hyperref[assignments]{Assignment 3} \\                 
+    \hline
+    
+    \multicolumn{4}{ |l| }{\cellcolor{gray!25} \textbf{Module 3: Data Visualization}} \\
+    \hline
+     \textbf{Day} & \textbf{Topic}        & \textbf{Reading}                   & \textbf{Assignment} \\ \hline
+                4 & Applying Grammar \& Theory & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 7}  & \textbullet \hyperref[assignments]{Assignment 4} \\
+                  &                       & \textbullet \href{https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf}{R: Transformations Cheatsheet} &  \\  
+    \hline
+                5 & Mutate, Summarize, \& Group By   & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 3 \& 7}  & \textbullet \hyperref[assignments]{Assignment 5} \\   
+
+    \hline
+    
+    \multicolumn{4}{ |l| }{\cellcolor{gray!25} \textbf{Module 4: Exploratory Data Analysis (EDA)}} \\
+    \hline
+    
+     \textbf{Day} & \textbf{Topic}        & \textbf{Reading}                   & \textbf{Assignment} \\ \hline
+                6 & Applying Grammar \& Theory & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 7}  & \textbullet \hyperref[assignments]{Assignment 6} \\
+                  &                       & \textbullet \href{https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf}{R: Transformations Cheatsheet} &  \\  
+    \hline
+  
+
+    
+                7 & Finding Patterns   & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 12}  & \textbullet \hyperref[assignments]{Assignment 7} \\   
+    \hline
+    
+    \multicolumn{4}{ |l| }{\cellcolor{gray!25} \textbf{Module 5: Data Tidying}} \\
+    \hline
+    
+     \textbf{Day} & \textbf{Topic}        & \textbf{Reading}                   & \textbf{Assignment} \\ \hline
+                8 & Reshaping & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 13}  & \textbullet \hyperref[assignments]{Assignment 8} \\
+                  &                       & \textbullet \href{https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf}{R: Transformations Cheatsheet} &  \\  
+    \hline
+                9 & Combining: Joins \& Binds   & \textbullet \href{http://r4ds.had.co.nz}{Grolemund \& Wickham Ch. 11}  & \textbullet \hyperref[assignments]{Assignment 9} \\   
+                  &                       & \textbullet \href{https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf}{R: Transformations Cheatsheet} &  \\          
+              
+                
+    \hline
+    
+    \multicolumn{4}{ |l| }{\cellcolor{gray!25} \textbf{Module 6: Data Importing \& Exporting}} \\
+    \hline
+    
+     \textbf{Day} & \textbf{Topic}        & \textbf{Reading}                   & \textbf{Assignment} \\ \hline
+                10 & Import/Export in R & \textbullet \href{https://www.youtube.com/watch?v=bEtnYWuo2Bw}{YouTube: Learn Basic SQL in 10 Minutes}  & \textbullet \hyperref[assignments]{Assignment 10} \\
+                  &                       & \textbullet \href{https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf}{R: Transformations Cheatsheet} &  \\  
+    \hline
+                11 & SQL Querying: Select, From, \& Where   & \textbullet & \textbullet \hyperref[assignments]{Assignment 11} \\ 
+                   &                       & \textbullet \href{http://www.sqltutorial.org/wp-content/uploads/2016/04/SQL-cheat-sheet.pdf}{R: Querying Cheatsheet} &  \\  
+    \hline  
+                    
+    \hline
+                12 & SQL Querying: Count, Group By, \& Join   &   &  \\   
+    \hline
+
+
+\end{tabular}
+
+
+
+
+# Assignments \label{assignments}
+
+
+| Assignment | Description                                                                        |
+|------------|------------------------------------------------------------------------------------|
+| 1          | Data types & ggplot2 |
+| 2          |   |
+| 3          |  *  |
+| 4          |  *  |
+| 5          |  *  |
+| 6          |  *  |
+| 7          |  *  |
+| 8          |  *  |
+| 9          |  *  |
+| 10         |  *  |
+| 11         |  *  |
+
+
+
+# Learning Outcomes
+
+1. Query SQL databases.
+1. Import common data file formats into R.
+1. Combine data from multiple sources.
+1. Manipulate data into a tidy format.
+1. Transform data with mutations and summarizations.
+1. Select appropriate graph forms and aesthetics to represent data.
+1. Produce tabular and graphical summaries of data.
+1. Export tabular and graphical summaries of data from R.
+
+## What You Won't Learn
+
+This course will not teach advanced data science techniques.  It will not cover statistcal modeling, machine learning, computer programming, big data, text analysis, reporting, or dashboarding.  Additionally, R an SQL are capable of much more that this course uses them for.  They are full featued and capable of integrating with a host of other technologies and products.  We will utilize ~10% these tools' features to accomplish the primary goal and learning outcomes of this course.  
+
+# Required Technologies \label{installation}
+
+
+We will use [R](https://cran.r-project.org), [RStudio](https://www.rstudio.com), and [Install SQL Operations Studio](https://docs.microsoft.com/en-us/sql/sql-operations-studio/download).  Sometimes people confuse R & RStudio.  R is the backend while RStudio is an IDE for working with R.  
+
+1. [Install R](https://cloud.r-project.org/) (Do this before installing RStudio)
+    - Click on the download link corresponding to your computer's operating system
+    - Download the installer and follow the directions.
+1. [Install RStudio](https://www.rstudio.com/products/rstudio/download/#download)
+    - Scroll down to "Installers for Supported Platforms"
+    - Click on the download link corresponding to your computer's operating system
+1. [Install SQL Operations Studio](https://docs.microsoft.com/en-us/sql/sql-operations-studio/download)
+    - Click on the download link corresponding to your computer's operating system
+    - Download the installer (Windows) or .zip (Mac) and follow the directions    
+
+***Note****: If you need more detailed instructions on how to install R and RStudio, watch this [DataCamp video (1m22s)](https://campus.datacamp.com/courses/working-with-the-rstudio-ide-part-1/orientation?ex=3).*
+
+
+## Cheat Sheets
+
+Cheat sheets provide nice references for utilizing the R & SQL tooling.
+
+| Link | Description |
+|------|-------------|
+| [R: Base R](https://www.rstudio.com/wp-content/uploads/2016/05/base-r.pdf) |	Covers many basic R functions |
+| [R: Data Transformations](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf) | Create new columns & summarize data (tidyverse) |
+| [R: Data Visualization](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) | Visualization in ggplot2 |
+| [R: Data Import](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf) | Importing, cleaning, & restructuring (tidyverse) |
+| [R: Data Import](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) | Wrangling (tidyverse) |
+| [SQL: Basic Querying](http://www.sqltutorial.org/wp-content/uploads/2016/04/SQL-cheat-sheet.pdf) | Basic SQL queries |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
