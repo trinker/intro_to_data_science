@@ -1,0 +1,4 @@
+library(exampledata)
+View(wegmans)
+
+

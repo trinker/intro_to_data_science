@@ -1,4 +1,4 @@
 ggplot() +
-    geom_boxplot(data = carnegie, aes(x = CONTROL, y = SATCMB25))
+    geom_boxplot(data = carnegie, aes(x = 1, y = SATCMB25))
 
 

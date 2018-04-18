@@ -16,7 +16,10 @@
 
 ## Base R comes with a lot of useful features.  But there are add on packages
 ##   that can be installed to extend the capabilities of R.  Let's install the 
-##   devtools & tidyverse packages. 
+##   devtools, tidyverse, & hexbin packages. 
+
+## install.packages('devtools')
+
 
 
 
@@ -74,7 +77,7 @@ library(devtools)
 ## Install a pre-built data set: Carnegie
 ##=======================================
 ## We will need a package that contains a data set with Carnegie classifications.
-##   We have install the package from GitHub.  Run the 2 lines below to install 
+##   We have to install the package from GitHub.  Run the 2 lines below to install 
 ##   the carnegie package.
 if (!require("devtools")) install.packages("devtools"); library(devtools)
 install_github('trinker/carnegie')

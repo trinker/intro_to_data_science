@@ -1,4 +1,4 @@
 ggplot() +
-    geom_smooth(data = carnegie, aes(x = ROOMS, y = SATV25))
+    geom_boxplot(data = carnegie, aes(x = CONTROL, y = SATCMB25))
 
 

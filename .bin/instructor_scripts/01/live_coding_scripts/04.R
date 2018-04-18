@@ -1,4 +1,4 @@
 ggplot() +
-    geom_bar(data = carnegie, aes(x = IPGRAD2015)) 
+    geom_bar(data = carnegie, aes(x = LOCALE))
 
 

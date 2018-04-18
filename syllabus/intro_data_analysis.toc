@@ -1,9 +1,10 @@
 \contentsline {section}{Overview}{1}{section*.2}
 \contentsline {section}{Approach}{1}{section*.3}
 \contentsline {section}{Required Texts}{2}{section*.4}
-\contentsline {section}{Course Schedule}{2}{section*.5}
-\contentsline {section}{Assignments }{3}{section*.6}
-\contentsline {section}{Learning Outcomes}{4}{section*.7}
+\contentsline {section}{Learning Outcomes}{2}{section*.5}
+\contentsline {section}{Course Schedule}{2}{section*.6}
+\contentsline {section}{Assignments }{3}{section*.7}
 \contentsline {subsection}{What You Won't Learn}{4}{section*.8}
 \contentsline {section}{Required Technologies }{4}{section*.9}
 \contentsline {subsection}{Cheat Sheets}{4}{section*.10}
+\contentsline {section}{Advanced}{5}{section*.11}

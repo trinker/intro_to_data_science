@@ -1,3 +1,4 @@
-char_var <- c('dlrow olleh', 
+install.packages('tidyverse')
+install.packages('hexbin')
 
 

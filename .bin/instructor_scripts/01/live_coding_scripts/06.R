@@ -1,4 +1,4 @@
 ggplot() +
-    geom_point(data = carnegie, aes(x = FALLENR13, y = FALLENR14))
+    geom_point(data = carnegie, aes(x = SATV25, y = SATM25))
 
 

@@ -1,4 +1,4 @@
 ggplot() +
-    geom_point(data = carnegie, aes(x = SATV25, y = SATM25))
+    geom_bar(data = carnegie, aes(x = IPGRAD2015)) 
 
 

@@ -1,4 +1,4 @@
 ggplot() +
-    geom_boxplot(data = carnegie, aes(x = 1, y = SATCMB25))
+    geom_jitter(data = carnegie, aes(x = ROOMS, y = SATV25), width = 50, height = 5)
 
 

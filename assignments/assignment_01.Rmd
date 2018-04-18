@@ -1,0 +1,45 @@
+---
+title: "Assignment 01"
+output: pdf_document
+---
+
+```{r, echo=FALSE, results = 'hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+
+qrev <- data_frame(
+    quarter = 1:4,
+    revenue = c(16000, 22000, 26000, 17000)
+)
+```
+
+This homework will help you to practice and self assess your knowledge and ability around the course concepts.  Use the answer key to assess your work.  
+
+
+1. Assign a numeric vector with the values $\{1, 4, 12, 7, 2\}$ to an object name `scores`.
+
+2. Assign a character vector with the values $\{CE, Outcomes, Beacon, Engage, Insight\}$ to an object name `product`.
+
+3. Load the **tidyverse** package.
+
+4. Make a 2 column, 4 row, data frame (`data_frame` function) with a column for `quarter` and `revenue`.  Use the values $\{1, 2, 3, 4\}$ for `quarter` and $\{16000, 22000, 26000, 17000\}$ for `revenue`.  Assign the data table to an object named `qrev`.
+
+5. Install and load the **car** package.
+
+6. Use the `?` to view the help file for the `Florida` data set.  What is the cite source for this data set?
+
+7. Use the `View` function to look at the `Florida` data set.  How many people voted for Gore in Flagler County?
+
+8. Load the **carnegie** package.
+
+9. Use the `carnegie` data set and the **ggplot2** package (loaded in **tidyverse** above) to make a bar graph of `BASIC2015` types.
+
+10. Make a scatterplot to examine the relationship between `ROOMS` & `BACCDEG`.  Make sure your plot avoids overplotting issues.
+
+11. Make a histogram to examine the distribution of number of `ROOMS`.  Set the `aes` (`x` position) and `data` globally in the `ggplot` function.  After plotting with the default, adjust the binwidth to an interval of 250 wide.
+
+12. Use **ggplot2** and the `qrev` data set you created above to make this Cleveland dotplot.
+
+```{r, echo = FALSE, fig.width = 3, fig.height = 2.5}
+ggplot(data = qrev, aes(x = revenue, y = quarter)) +
+    geom_point() 
+```

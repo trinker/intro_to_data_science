@@ -16,8 +16,13 @@
 
 ## Base R comes with a lot of useful features.  But there are add on packages
 ##   that can be installed to extend the capabilities of R.  Let's install the 
-##   devtools & tidyverse packages. 
-#! install.packages('tidyverse')
+##   devtools, tidyverse, & hexbin packages. 
+
+## install.packages('devtools')
+
+.(1)
+# install.packages('tidyverse')
+# install.packages('hexbin')
 
 
 
@@ -51,7 +56,7 @@ library(devtools)
 
 ## Character vector (made w/ strings):
 
-.(1)
+.(2)
 # char_var <- c('dlrow olleh', 
 #! char_var <- c('dlrow olleh', "and another string", 'one more for good measure', 'four', '5', NA)
 
@@ -76,7 +81,7 @@ library(devtools)
 ## Install a pre-built data set: Carnegie
 ##=======================================
 ## We will need a package that contains a data set with Carnegie classifications.
-##   We have install the package from GitHub.  Run the 2 lines below to install 
+##   We have to install the package from GitHub.  Run the 2 lines below to install 
 ##   the carnegie package.
 if (!require("devtools")) install.packages("devtools"); library(devtools)
 install_github('trinker/carnegie')
@@ -153,7 +158,7 @@ ggplot(data = <DATA>) +
 ## What is are the five states with the largest number of institutions?
 
 
-.(2)
+.(3)
 # ggplot() +
 #     geom_bar(data = carnegie, aes(x = STABBR))
 
@@ -161,7 +166,7 @@ ggplot(data = <DATA>) +
 ##  Let's try looking at the LOCALE distributions as well.
 
 
-.(3)
+.(4)
 # ggplot() +
 #     geom_bar(data = carnegie, aes(x = LOCALE))
 
@@ -170,7 +175,7 @@ ggplot(data = <DATA>) +
 ##      `coord_flip()` can be useful for when labels are long. 
 
 
-.(4)
+.(5)
 # ggplot() +
 #     geom_bar(data = carnegie, aes(x = IPGRAD2015)) 
 
@@ -194,7 +199,7 @@ ggplot(data = <DATA>) +
 
 
 
-.(5)
+.(6)
 # ggplot() +
 #     geom_point(data = carnegie, aes(x = SATV25, y = SATM25))
 
@@ -219,25 +224,25 @@ ggplot(data = <DATA>) +
 
 
 
-.(6)
+.(7)
 # ggplot() +
 #     geom_point(data = carnegie, aes(x = FALLENR13, y = FALLENR14))
 
 
 
-.(7)
+.(8)
 # ggplot() +
 #     geom_point(data = carnegie, aes(x = FALLENR13, y = FALLENR14), alpha = .02)
 
 
 
-.(8)
+.(9)
 # ggplot() +
 #     geom_point(data = carnegie, aes(x = ROOMS, y = FALLENR14))
 
 
 
-.(9)
+.(10)
 # ggplot() +
 #     geom_jitter(data = carnegie, aes(x = ROOMS, y = SATV25), width = 50, height = 5)
 
@@ -248,7 +253,7 @@ ggplot(data = <DATA>) +
 ##   look at the distribution of SATCMB25 scores.
 
 
-.(10)
+.(11)
 # ggplot() +
 #     geom_boxplot(data = carnegie, aes(x = 1, y = SATCMB25))
 
@@ -264,7 +269,7 @@ ggplot(data = <DATA>) +
 ##   groups.  Did you notice anything interesting?
 
 
-.(11)
+.(12)
 # ggplot() +
 #     geom_boxplot(data = carnegie, aes(x = CONTROL, y = SATCMB25))
 
@@ -287,7 +292,7 @@ ggplot(data = <DATA>) +
 #!     geom_jitter(data = carnegie, aes(x = ROOMS, y = SATV25), width = 50, height = 5)
 
 
-.(12)
+.(13)
 # ggplot() +
 #     geom_smooth(data = carnegie, aes(x = ROOMS, y = SATV25))
 
@@ -299,7 +304,7 @@ ggplot(data = <DATA>) +
 ##    and SATV25 bivariate continuous relationship.  Layering allows us to create
 ##    arbitrarily complex plots.
 
-.(13)
+.(14)
 # ggplot() +
 #     geom_jitter(data = carnegie, aes(x = ROOMS, y = SATV25), width = 50, height = 5) +
 #     geom_smooth(data = carnegie, aes(x = ROOMS, y = SATV25))

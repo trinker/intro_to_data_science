@@ -1,0 +1,76 @@
+---
+title: "Assignment 08"
+output: pdf_document
+---
+
+This homework will help you to practice and self assess your knowledge and ability around the course concepts.  Use the answer key to assess your work.  
+
+```{r, echo=FALSE, results = 'hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+library(exampledata)
+```
+
+
+1. Load the **tidyverse** & **exampledata** packages.
+
+2. Often Bob would have a "Happy Accident" and turn a mistake into a tree.  He made a lot of mistakes so we'd expect to see a lot of trees being painted.  Let's find out how frequently trees and other events happened and compare them to one another.    
+
+    A. Grab the painting element columns (`aurora_borealis` through `winter`) and tidy them    
+    B. Now we can count how frequently each element happened    
+    C. Plot an ordered bar plot showing the frequency of painting elements (you'll need to arrange after the last step and create a factor)
+    
+    ***Hint*** Final plot will look like this:
+
+```{r, fig.width =7, fig.height = 4.5, echo = FALSE, warning=FALSE}
+bob_ross %>%
+    gather(element, n, aurora_borealis:winter) %>%
+    group_by(element) %>%
+    summarize(n = sum(n)) %>%
+    arrange(n) %>%
+    mutate(
+        element = factor(element, levels = element)
+    ) %>%
+    ggplot(aes(element, n)) +
+        geom_bar(stat = 'identity') +
+        coord_flip() +
+        theme(axis.text.y = element_text(size = 8))
+
+```
+  
+\newpage
+
+3. Run the code below to generate a new data set named `dat`.  Use the new `dat` data frame to make an untidy cross tab of year vs. quarters (quarters will become the column headers).  In other words `spread` revenue across quarters.    
+
+```{r}
+set.seed(14)
+dat <- data_frame(
+    year = c(2017, 2017, 2017, 2017, 2018, 2018, 2018, 2018),
+    quarter = paste0('Q', c(1, 2, 3, 4, 1, 2, 3, 4)),
+    revenue = rnorm(8, mean = 100000, sd = 20000)
+)
+```
+
+
+\textbf{\textit{\hspace{1cm}Hint}} Table will look like this:
+
+
+```{r, echo = FALSE}
+dat %>%
+    spread(quarter, revenue) %>%
+    pander::pander(justify = numform::alignment(.))
+```
+
+
+4. Use the same data set to spread revenue across years.  Compute the growth/change from 2017 to 2018 as a new column.  Compute the percent change between years as well.  
+
+    \textbf{\textit{Hint}} Table will look like this:
+
+```{r, echo = FALSE}
+dat %>%
+    spread(year, revenue) %>%
+    mutate(
+        change = `2018` - `2017`,
+        per_change = round(100 * (change/`2017`), 0)
+    ) %>%
+    pander::pander(justify = numform::alignment(.))
+```

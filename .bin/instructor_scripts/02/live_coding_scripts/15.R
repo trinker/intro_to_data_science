@@ -1,0 +1,4 @@
+wegmans %>%
+    filter(item > 'r')
+
+

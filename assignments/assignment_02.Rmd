@@ -1,0 +1,41 @@
+---
+title: "Assignment 02"
+output: pdf_document
+---
+
+This homework will help you to practice and self assess your knowledge and ability around the course concepts.  Use the answer key to assess your work.  
+
+```{r, echo=FALSE, results = 'hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+
+
+
+```
+
+
+1. Load the **tidyverse** package.
+
+2. `View()` the `starwars` data set from the **dplyr** package (**dplyr** is part of the **tidyverse** package so it is already loaded).
+
+3. What units are height and mass in?  You might guess but you can lookup this information in the help documentation.
+
+4. Drop the last three columns and reassign to a variable called `starwars2`.  You will use `starwars2` for the remainder of the assignment.  
+
+5. Grab only rows/observation with a height greater than 200. 
+
+6. Grab only characters less than 50 mass and order them from smallest to largest.
+
+7. Look up how to convert cm to inches and kg to pounds and add columns for height and weight that are in inches and pounds.
+
+8. Use the pounds and inches column to calculate the BMI for every character [formula: `(lbs/(in^2)) * 703`]. 
+
+9. Use the table below to add a column to the previous output bucketing the BMIs into risk levels (hint: use `case_when()`).
+
+| Risk Level    | Range                |
+|---------------|----------------------|
+| Underweight   | less than 18.5       |
+| Normal Weight | 18.5 to less than 25 |
+| Overweight    | 25 to less than 30   |
+| Obese         | 30 or greater        |
+
+10. Use the previous output, remove observations where height or mass is missing and order descending on BMI.
