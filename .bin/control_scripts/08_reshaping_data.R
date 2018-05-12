@@ -31,7 +31,7 @@ library(tidyverse)
 ##      ---------------------------------------------------
 
 ## You'll need the `data_frame` function.  
-##   Assign it to a variable names `profdat`.
+##   Assign it to an object named `profdat`.
 
 # profdat <- data_frame(
 #     Professor = c("Professor X", "Professor Y", "Professor Z"),
