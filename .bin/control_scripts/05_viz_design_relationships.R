@@ -28,7 +28,7 @@ View(buffalo_snow_tidy)
 ##============
 ## Correlation
 ##============
-## What's the relationship between  calories and sugars?
+## What's the relationship between calories and sugars?
 cereal %>%
     ggplot(aes(calories, sugars)) + 
         geom_point()
@@ -157,8 +157,8 @@ cereal %>%
 
 
 
-## Follow-up question: Are all the sugary cereals kid cereals (on shelf 2)?
-##   Adda fill aesthetic mapped to shelf
+## Follow-up question: Are all the sugary cereals, kid cereals (on shelf 2)?
+##   Add a fill aesthetic mapped to shelf
 cereal %>%
     filter(sugars > 1) %>%
     arrange(sugars) %>%

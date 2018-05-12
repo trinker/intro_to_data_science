@@ -25,8 +25,8 @@ install_github('trinker/exampledata')
 
 ## Now load it via the `library()`  function and view the `wegmans` data set 
 ##   with the `View()` function. 
-# library(exampledata)
-# View(wegmans)
+#! library(exampledata)
+#! View(wegmans)
 
 ## How can we learn more about the built in data set?
 #! ?wegmans
@@ -41,6 +41,9 @@ install_github('trinker/exampledata')
 ## piping
 ##=======
 ## First a detour, piping.  Un-nest code for easier cognitive parsing.
+## Hadley on the pipe:
+browseURL('https://www.youtube.com/embed/K-ss_ag2k9E?list=PLNtpLD4WiWbw9Cgcg6IU75u-44TrrN3A4?rel=0;start=1288;end=1383')
+
 
 ## Nested Coding
 set.seed(10)
@@ -62,32 +65,26 @@ rnorm(20) %>%
 ## select
 ##=======
 ##  We select variables/columns
-# wegmans %>%
-#     select(department, item, new_price)
-
-
+wegmans %>%
+    select(department, item, new_price)
 
 
 
 ## We can use the colon operator to select columns from x to y.
-# wegmans %>%
-#     select(department, item, wholesale:popularity)
-
-
+wegmans %>%
+    select(department, item, wholesale:popularity)
 
 
 
 ## We can use negation to drop columns.
-# wegmans %>%
-#     select(-department)
-
+wegmans %>%
+    select(-department)
 
 
 
 ## We can drop several columns at once by using the `c()` function.
-# wegmans %>%
-#     select(-c(wholesale, old_price, popularity:product_of_usa))
-
+wegmans %>%
+    select(-c(wholesale, old_price, popularity:product_of_usa))
 
 
 
@@ -106,69 +103,69 @@ rnorm(20) %>%
 browseURL('http://r4ds.had.co.nz/transform.html#logical-operators')
 
 ## What items are $3.09?
-# wegmans %>%
-#     filter(new_price == 3.09)
+wegmans %>%
+    filter(new_price == 3.09)
 
 
 
 
 ## What items are more than $3.09?
-# wegmans %>%
-#     filter(new_price > 3.09)
+wegmans %>%
+    filter(new_price > 3.09)
 
 
 
 
 ## What items are at least $3.09?
-# wegmans %>%
-#     filter(new_price >= 3.09)
+wegmans %>%
+    filter(new_price >= 3.09)
 
 
 
 
 ## What items are above $3.50 or below $2.00?
-# wegmans %>%
-#     filter(new_price < 2.00 | new_price > 3.50)
+wegmans %>%
+    filter(new_price < 2.00 | new_price > 3.50)
 
 
 
 
 ## What are the items between $2.75 and $3.00?
-# wegmans %>%
-#     filter(new_price >= 2.75 & new_price <= 3.00)
+wegmans %>%
+    filter(new_price >= 2.75 & new_price <= 3.00)
 
 
 
-
-# wegmans %>%
-#     filter(between(new_price, 2.75, 3.00))
+## A nice shortcut for finding things between 2 points
+wegmans %>%
+    filter(between(new_price, 2.75, 3.00))
 
 
 
 
 ## What items are 5 stars popular and cost less than $3.50?
-# wegmans %>%
-#     filter(popularity == 5 & new_price < 3.50)
+wegmans %>%
+    filter(popularity == 5 & new_price < 3.50)
 
 
 
 
 ## What are all the items that are dairy, produce, or meat?
-# wegmans %>%
-#     filter(department == 'dairy' | department == 'produce' | department == 'produce')
+wegmans %>%
+    filter(department == 'dairy' | department == 'produce' | department == 'meat')
 
 
 
-
-# wegmans %>%
-#     filter(department %in% c('dairy', 'produce', 'produce'))
+## OR... a better way via %in% 
+wegmans %>%
+    filter(department %in% c('dairy', 'produce', 'meat'))
 
 
 
 
 ## Interesting:  You can filter by logical operators on first letters of strings:
-# wegmans %>%
-#     filter(item > 'r')
+wegmans %>%
+    filter(item > 'r')
 
 
 
@@ -178,35 +175,35 @@ browseURL('http://r4ds.had.co.nz/transform.html#logical-operators')
 ## We order all rows by a variable(s)
 
 ## What are the most popular to least popular items?
-# wegmans %>%
-#     arrange(desc(popularity))
+wegmans %>%
+    arrange(desc(popularity))
 
 
 
 
 ## What are the cheapest to most expensive items?
-# wegmans %>%
-#     arrange(new_price)
+wegmans %>%
+    arrange(new_price)
 
 
 
-
-# wegmans %>%
-#     arrange(desc(new_price))
+## descending
+wegmans %>%
+    arrange(desc(new_price))
 
 
 
 
 ## What are the cheapest to most expensive items in each department? 
-# wegmans %>%
-#     arrange(department, new_price)
+wegmans %>%
+    arrange(department, new_price)
 
 
 
 
 ## What are the items that were most recently shipped
-# wegmans %>%
-#     arrange(desc(last_shipment))
+wegmans %>%
+    arrange(desc(last_shipment))
 
 
 
@@ -223,73 +220,113 @@ browseURL('http://r4ds.had.co.nz/transform.html#logical-operators')
 ## Usually we use window functions 
 
 ## What is the unit price on each item?
-# wegmans %>%
-#     mutate(unit_price = round(new_price/weight, 2))
+wegmans %>%
+    mutate(unit_price = new_price/weight)
 
 
 
 
-## What is the difference in cost between old and new price?
-# wegmans %>%
-#     mutate(change = old_price - new_price)
+## What is the difference in cost between old and new price? In other words, how
+##   much ahs the price gone up?
+wegmans %>%
+    mutate(change = new_price - old_price)
 
 
 
 
 ## What is the percent change in price?
-# wegmans %>%
-#     mutate(per_change = round(100*(old_price - new_price)/old_price, 1))
+wegmans %>%
+    mutate(per_change = 100 * (new_price - old_price)/old_price)
 
 
 
 
 
 ## What is the revenue made per item?
-# wegmans %>%
-#     mutate(change = new_price - wholesale)
+wegmans %>%
+    mutate(revenue = new_price - wholesale)
 
 
 
 
 ## Note that you can mutate more than one column at once:
-# wegmans %>%
-#     mutate(
-#         change = new_price - wholesale,
-#         prop_change = change/wholesale
-#     )
+wegmans %>%
+    mutate(
+        revenue = new_price - wholesale,
+        prop_markup = revenue/wholesale
+    )
 
 
 
 
 ## Combing verbs: More power
 ## Select department, item, wholesale, and new_price and answer:
-## What are the items that are marked up at least 25% arrangeged from largest to 
+## What are the items that are marked up at least 25% arranged from largest to 
 ##   smallest percent markup?
-# wegmans %>%
-#     select(department:item, wholesale, new_price) %>%
-#     mutate(per_change = round(100*(new_price - wholesale)/wholesale, 1)) %>%
-#     arrange(desc(per_change)) %>%
-#     filter(per_change > 25)
+wegmans %>%
+    select(department:item, wholesale, new_price) %>%
+    mutate(per_markup = 100*(new_price - wholesale)/wholesale) %>%
+    arrange(desc(per_markup)) %>%
+    filter(per_markup > 25)
 
 
 
-
+##----------
 ## Bucketing
+##----------
+## Equal buckets
+cut(1:10, 3)
+
+## Cutpoints
+cut(1:10, c(2, 6))
+cut(1:10, c(0, 2, 6, 10))
+cut(1:10, c(0, 2, 6, 10), labels = c('low', 'medium', 'high'))
+cut(1:10, c(0, 2, 6, 11), right = FALSE)
+
+## Seeing it together
+data_frame(
+    i = 1:10,
+    equal_bucket = cut(1:10, 3),
+    cut_points = cut(1:10, c(0, 2, 6, 10)),
+    labeled_cut_points = cut(1:10, c(0, 2, 6, 10), labels = c('low', 'medium', 'high')),
+    cut_points_left = cut(1:10, c(0, 2, 6, 11), right = FALSE)    
+)
+
+
 ## What are the high, medium, and low priced items?
-# wegmans %>%
-#     mutate(price_bucket = cut(new_price, c(0, 2.5, 3.25, 5), labels = c('low', 'medium', 'high')))
+wegmans %>%
+    mutate(
+        price_bucket = cut(
+            x = new_price, 
+            breaks = c(0, 2.5, 3.25, 5), 
+            labels = c('low', 'medium', 'high')
+        )
+    )
 
-# cut(1:10, 3)
-
-# cut(1:10, c(0, 2, 6, 10))
 
 
 
 
+##------------
 ## Re-grouping
+##------------
+x <- c('boxer', 'poodle', 'Siamese', 'Garfield', 'Odie', 'Fish', 'Sylvester')
+
+case_when(
+    x == 'boxer' ~ 'dog'
+)
+
+
+
 ## What items are available as organic, not organic and both (y = yes, n = no)
-# wegmans %>%
-#     mutate(organic2 = case_when(organic == 'y' ~ 'yes', organic == 'n' ~ 'no', TRUE ~ organic))
+wegmans %>%
+    mutate(
+        organic2 = case_when(
+            organic == 'y' ~ 'yes', 
+            organic == 'n' ~ 'no', 
+            TRUE ~ organic
+        )
+    )
 
 
 

@@ -41,6 +41,21 @@ starwars %>%
         geom_bar(fill = 'orange') 
 
 
+.(3)
+# ggplot(data = starwars, aes(eye_color)) +
+#     geom_bar(fill = 'orange') 
+
+
+#! not runable in this state
+
+.(4)
+# starwars %>%
+#     group_by(eye_color) %>%
+#     summarize(n = length(eye_color)) %>%
+#     ggplot(aes(eye_color)) +
+#         geom_bar(fill = 'orange') 
+
+
 ## What genders make up the distribution within eye colors?
 ## Count of Eye Color [fill by gender]
 starwars %>%
@@ -63,28 +78,36 @@ starwars %>%
     geom_point()
 
 
-## Who is the outlier from above?
+## Who is the outlier from above? (use your data transformation skills)
 starwars %>%
     filter(mass > 250)
 
 
-## Re-plot without outlier
+## Re-plot without outlier 
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
     geom_point()
 
+
+
 ## Does the height/mass relationship hold across genders?
 ## Categorical Variables & Useful Aesthetics
 ##------------------------------------------
-## Add a look at this correlation colored by the gender variable
+## Categorical = {pre-attentive attributes: color, shape}
+
+
+.(5)
+# Gender = color
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
     geom_point(aes(color = gender))
 
 
-## Same correlation shape by the gender variable
+
+.(6)
+# Gender = shape
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
@@ -96,7 +119,9 @@ browseURL('http://sape.inf.usi.ch/sites/default/files/ggplot2-shape-identity.png
 
 
 
-## Use shape and color to identify subgroups
+
+.(7)
+# Gender = coor & shape
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
@@ -105,38 +130,46 @@ starwars %>%
         scale_color_manual(values = c('red', 'black', 'blue'))
 
 
+
+
 ## Are older people heavier and taller?
-## Numeric Variables & Useful Aesthetics
+## 3 numeric variables....2-d position & size
 ##--------------------------------------
-## Same correlation but size by birth year 
-##   Year born (BBY = Before Battle of Yavin)
+## Same correlation from above but  pre-attentive attribute of size mapped 
+##   to birth year. Note: Year born (BBY = Before Battle of Yavin)
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
     geom_point(aes(size = birth_year))
 
 
-## Who is that old, short, light character?
+## Who is that old, short, light character? (use the data transformation force)
 starwars %>%
     filter(mass < 250) %>%
     filter(birth_year > 500)
 
 
+
+
+
 ## Is the correlation between height and weight consistent across species?
+##   This is sensation overload...
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
     geom_point(aes(color = species))
 
 
-## Are there species groups we could combine?
+## Are there species groups we could combine? (use the data transformation force)
 starwars %>%
     filter(mass < 250) %>%
     count(species) %>%
     arrange(desc(n))
     
 
-## Is the correlation between height and weight consistent for humans and non-humans?
+
+## Is the correlation between height and weight consistent for humans 
+##   and non-humans?
 starwars %>%
     filter(mass < 250) %>%
     mutate(human = case_when(species == 'Human' ~ 'Human', TRUE ~ 'Other')) %>%
@@ -153,10 +186,16 @@ starwars %>%
 ##   - facet_wrap (wrapped from line to line)
 
 
-## Is the correlation between height and weight consistent for humans and non-humans?
+## Is the correlation between height and weight consistent for 
+##   humans and non-humans?
 starwars %>%
     filter(mass < 250) %>%
-    mutate(human = case_when(species == 'Human' ~ 'Human', TRUE ~ 'Other')) %>%
+    mutate(
+        human = case_when(
+            species == 'Human' ~ 'Human', 
+            TRUE ~ 'Other'
+        )
+    ) %>%
     ggplot(aes(height, mass)) +
     geom_point(aes(color = human)) +
     facet_wrap(~ human, ncol = 1)
@@ -167,7 +206,12 @@ starwars %>%
 starwars %>%
     filter(mass < 250) %>%
     filter(gender %in% c('male', 'female')) %>%
-    mutate(human = case_when(species == 'Human' ~ 'Human', TRUE ~ 'Other')) %>% 
+    mutate(
+        human = case_when(
+            species == 'Human' ~ 'Human', 
+            TRUE ~ 'Other'
+        )
+    ) %>%
     ggplot(aes(height, mass)) +
     geom_point(aes(color = human)) +
     facet_grid(gender ~ human, scales = 'free_x')
@@ -175,11 +219,16 @@ starwars %>%
 ## Note `scales = 'free_x'`
 
 
+
+
+
+
+
 ##===========================================
 ## Adding Summary Geoms (secondary component)
 ##===========================================
-## Sometimes we can use ggplot2 geoms that take raw data and make summary geoms
-##   like the geom_smooth below
+## Sometimes we can use ggplot2 geoms that take raw data and make 
+##   summary geoms like the geom_smooth below
 
 
 ## Back to the original correlation between mass and height.
@@ -188,7 +237,8 @@ starwars %>%
     ggplot(aes(height, mass)) +
     geom_point()
 
-## Multiple aesthetics set to constant values (alpha useful for overplotting)
+## Quick Styline Detour Demo: Multiple aesthetics set to constant values 
+##   (alpha useful for overplotting)
 starwars %>%
     filter(mass < 250) %>%
     ggplot(aes(height, mass)) +
@@ -220,15 +270,16 @@ starwars %>%
 
 
 ##=====================================================
-## More Selecting Aesthetics, Facetting, & Summary Geoms
+## Computing Summary Geoms (secondary components)
 ##=====================================================
 ## Sometimes we need to compute the summary data set and supply it
 ##   directly to a geom as we do with `sumdat` below
 
-## What is the distribution of snow totals across months?
+## What is the distribution of snow totals across months? [strip plot]
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
-        geom_jitter(width = .2, color = 'gray40', size = .8) 
+        geom_jitter(height = 0, width = .2, color = 'gray40', size = .8) 
+
 
 ## Can we add the mean for each month as a point?
 
@@ -244,14 +295,14 @@ sumdat <- buffalo_snow_tidy %>%
 ## Supply this as a data set to a new point geom and provide a new y position
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
-        geom_jitter(width = .2, color = 'gray40', size = .8) +
-        geom_point(data = sumdat, aes(y = ave), color = 'blue')
+        geom_jitter(height = 0, width = .2, color = 'gray40', size = .8) +
+        geom_point(data = sumdat, aes(y = ave), color = 'red', size = 3)
 
 
 ## Same plot and 2ndary mean but as a segment rather than a point
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
-    geom_jitter(width = .2, color = 'gray40', size = .8) +
+    geom_jitter(height = 0, width = .2, color = 'gray40', size = .8) +
     geom_segment(
         data = sumdat, 
         aes(
@@ -265,10 +316,10 @@ buffalo_snow_tidy %>%
     )
 
 
-## Add boxes to represent mean and range
+## Add boxes via `geom_crossbar` to represent mean and range (3 values)
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
-        geom_jitter(width = .2, color = 'gray40', size = 1) +
+        geom_jitter(height = 0, width = .2, color = 'gray40', size = 1) +
         geom_crossbar(data = sumdat, aes(y =ave, ymin = min, ymax = max), color = 'blue')
 
 ## A boxplot gets at similar information but uses the median and 
@@ -277,11 +328,11 @@ buffalo_snow_tidy %>%
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
         geom_boxplot(fill = NA, color= 'blue') +
-        geom_jitter(width = .2, color = 'gray40', size = .9)
+        geom_jitter(height = 0, width = .2, color = 'gray40', size = .9)
 
 
-## We can add a lower to the previous plot with the ranges.  We can also add 
-##   add the ranges as well.
+## We can add a layer to the previous plot with the means (`geom_point`).  
+## We can also add the min/max ranges as well (`geom_crossbar`).
 ##
 ##   - Does the order we add the geoms matter?
 ##   - How have we changed the way geom_crossbar displays from when 
@@ -291,7 +342,7 @@ buffalo_snow_tidy %>%
         geom_crossbar(data = sumdat, aes(y =ave, ymin = min, ymax = max), 
             color = NA, fill = 'lightblue') +
         geom_boxplot(fill = NA, color= 'blue', outlier.color = NA) +
-        geom_jitter(width = .2, color = 'gray40', size = .9)  +
+        geom_jitter(height = 0, width = .2, color = 'gray40', size = .9)  +
         geom_point(data = sumdat, aes(y = ave), color = 'blue')
 
 
@@ -300,13 +351,13 @@ buffalo_snow_tidy %>%
 ##  Does this reveal anything interesting or overwhelm?
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
-        geom_jitter(width = .2, size = 1, aes(color = Decade))
+        geom_jitter(height = 0, width = .2, size = 1, aes(color = Decade))
 
 
-## Facet it to reduce the overplotting
+## Facet it to reduce the overplotting.  Does that help?
 buffalo_snow_tidy %>%
     ggplot(aes(Month, Snow)) +
-        geom_jitter(width = .2, size = 1, aes(color = Decade)) +
+        geom_jitter(height = 0, width = .2, size = 1, aes(color = Decade)) +
         facet_wrap(~Decade)
 
 
@@ -326,7 +377,9 @@ decade_month_dat %>%
         geom_line(aes(group = Decade))
 
 
-## Add a summary trend-line (notice there are two summary data sets being used)
+## Add a summary trend-line 
+##   Notice there are two summary data sets being used &
+##   `group = Decade` vs. `group = 1`
 decade_month_dat %>%
     ggplot(aes(Month, ave)) +
         geom_line(aes(group = Decade), color = 'grey50') +
@@ -334,4 +387,13 @@ decade_month_dat %>%
         geom_point(data = sumdat, color = 'blue', size = 1.5, shape = 15)
 
 
+## What are those decades that have much higher than usual average 
+##  snowfalls in December and January?
+decade_month_dat %>%
+    filter(Month == 'Dec') %>%
+    arrange(desc(ave))
+
+decade_month_dat %>%
+    filter(Month == 'Jan') %>%
+    arrange(desc(ave))
 

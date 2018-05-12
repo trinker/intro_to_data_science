@@ -1,4 +1,7 @@
 wegmans %>%
-    summarize(prop_usa = 100 * round(mean(product_of_usa), 2))
+    mutate(change = new_price - old_price) %>%
+    group_by(department) %>%
+    summarize(ave_change = mean(change)) %>%
+    arrange(ave_change)
 
 

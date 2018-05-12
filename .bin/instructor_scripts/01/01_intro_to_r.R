@@ -18,7 +18,7 @@
 ##   that can be installed to extend the capabilities of R.  Let's install the 
 ##   devtools, tidyverse, & hexbin packages. 
 
-## install.packages('devtools')
+install.packages('devtools')
 
 
 
@@ -142,7 +142,7 @@ install_github('trinker/carnegie')
 ggplot(data = <DATA>) + 
     <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
 
-## What's a geom and and aesthetic?
+## What's a geom and an aesthetic?
 
 
 

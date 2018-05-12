@@ -42,8 +42,8 @@ utils::data(package = 'exampledata')
 ##   of popularity a month (e.g., a rating of 3 can expect to sell 300 units),
 ##   how much profit could we expect to see for each item? 
 ## Task 2: Order the results by department, descending by profit.
-## Task 3: Assign to an object.
-## Task 4: Drop columns not related to this question.
+## Task 3: Drop columns not related to this question. 
+## Task 4: Assign to an object named `margins`.
 ## Task 5: Use the `View()` function to inspect the data set
 
 .(2)
@@ -51,12 +51,14 @@ utils::data(package = 'exampledata')
 #     mutate(
 #         markup = new_price - wholesale,
 #         expected_units = 100 * popularity,
-#         profit = round(expected_units * markup, 0)
+#         profit = expected_units * markup
 #     ) %>%
 #     arrange(department, desc(profit)) %>%
-#     select(department, item, new_price, popularity, markup:profit) 
+#     select(department, item, new_price, wholesale, popularity, markup:profit) 
 
-#! View(margins)
+
+.(3)
+# View(margins)
 
 
 
@@ -69,59 +71,52 @@ utils::data(package = 'exampledata')
 
 ## Is there an practical difference in the average old and new price?
 ## a. What is the average current price?
-
-.(3)
-# wegmans %>%
-#     summarize(ave_new = mean(new_price))
+wegmans %>%
+    summarize(ave_new = mean(new_price))
 
 
 ## b. What is the average old price?
-
-.(4)
-# wegmans %>%
-#     summarize(ave_old = mean(old_price))
+wegmans %>%
+    summarize(ave_old = mean(old_price))
 
 
 ## We can summarize more than one column, or different summary functions on the
 ##  same column, all in one shot.
-
-.(5)
-# wegmans %>%
-#     summarize(
-#         ave_new = mean(new_price),
-#         ave_old = mean(old_price),
-#         med_new = median(new_price),
-#         med_old = median(old_price)
-#     )
+wegmans %>%
+    summarize(
+        ave_new = mean(new_price),
+        ave_old = mean(old_price),
+        med_new = median(new_price),
+        med_old = median(old_price)
+    )
 
 
 
 
 
 ## What is the most and least expensive price?
-
-.(6)
-# wegmans %>%
-#     summarize(
-#         highest = max(new_price),
-#         lowest = min(new_price)
-#     )
+wegmans %>%
+    summarize(
+        highest = max(new_price),
+        lowest = min(new_price)
+    )
 
 
 
 
 ## How many total items are there?
-
-.(7)
-# wegmans %>%
-#     summarize(department_total_items = length(department))
+wegmans %>%
+    summarize(total_items = length(item))
 
 
 
 
 ## How many unique departments are there?
+wegmans %>%
+    summarize(departments = length(department))
 
-.(8)
+
+.(4)
 # wegmans %>%
 #     summarize(departments = length(unique(department)))
 
@@ -129,19 +124,15 @@ utils::data(package = 'exampledata')
 
 
 ## What is the percent of items made in the United States?
-
-.(9)
-# wegmans %>%
-#     summarize(prop_usa = 100 * round(mean(product_of_usa), 2))
+wegmans %>%
+    summarize(percent_usa = 100 * mean(product_of_usa))
 
 
 
 
 ## What is the standard deviation of weights?
-
-.(10)
-# wegmans %>%
-#     summarize(sd = sd(weight))
+wegmans %>%
+    summarize(sd = sd(weight))
 
 
 
@@ -170,20 +161,23 @@ wegmans %>%
 ## 2. Apply the mean summary function across each department's price column 
 wegmans  %>%
     split(.$department)%>%
-    lapply(function(x) round(mean(x$new_price), 2))
+    lapply(function(x) mean(x$new_price))
 
 
 ## 3. Combine back together 
 wegmans  %>%
     split(.$department)%>%
-    lapply(function(x) round(mean(x$new_price), 2)) %>%
+    lapply(function(x) mean(x$new_price)) %>%
     textshape::tidy_list('department', 'ave_price')
+
+
+
 
 ## Of course this split-apply-combine can be done with the group_by function 
 ##   coupled with a summary function.  
 wegmans %>%
     group_by(department) %>%
-    summarize(ave_price = round(mean(new_price), 2)) %>%
+    summarize(ave_price = mean(new_price)) %>%
     arrange(desc(ave_price))
 
 
@@ -197,63 +191,55 @@ wegmans %>%
     
     
 ## What is the most and least expensive price by department?
-
-.(11)
-# wegmans %>%
-#     group_by(department) %>%
-#     summarize(
-#         highest = max(new_price),
-#         lowest = min(new_price)
-#     )
+wegmans %>%
+    group_by(department) %>%
+    summarize(
+        highest = max(new_price),
+        lowest = min(new_price)
+    )
 
 
 
 
-## Is there a difference in average price by domestic products?
-
-.(12)
-# wegmans %>%
-#     mutate(
-#         product_of_usa2 = case_when(
-#             product_of_usa == 1 ~ 'Domestic', 
-#             TRUE ~ 'Import'
-#         )
-#     ) %>%
-#     group_by(product_of_usa2) %>%
-#     summarize(
-#         ave_price = mean(new_price)
-#     )
+## Is there a difference in average price by domestic/import products?
+wegmans %>%
+    mutate(
+        product_of_usa2 = case_when(
+            product_of_usa == 1 ~ 'Domestic',
+            TRUE ~ 'Import'
+        )
+    ) %>%
+    group_by(product_of_usa2) %>%
+    summarize(
+        ave_price = mean(new_price)
+    )
 
 
 
 
 ## Within each department, how many items are domestic and foreign?
-
-.(13)
-# wegmans %>%
-#     mutate(
-#         product_of_usa2 = case_when(
-#             product_of_usa == 1 ~ 'Domestic', 
-#             TRUE ~ 'Import'
-#         )
-#     ) %>%
-#     group_by(department, product_of_usa2) %>%
-#     summarize(n = length(item))
+wegmans %>%
+    mutate(
+        product_of_usa2 = case_when(
+            product_of_usa == 1 ~ 'Domestic',
+            TRUE ~ 'Import'
+        )
+    ) %>%
+    group_by(department, product_of_usa2) %>%
+    summarize(n = length(item))
 
 
 
 
-## The `count` function is a shortcut got `group_by` %>% `summarize(length(x)`
-
-.(14)
-# wegmans %>%
-#     mutate(
-#         product_of_usa2 = case_when(
-#             product_of_usa == 1 ~ 'Domestic', 
-#             TRUE ~ 'Import'
-#         )
-#     ) %>%
-#     count(department, product_of_usa2)
+## The `count` function is a shortcut for `group_by` %>% `summarize(length(x)`
+wegmans %>%
+    mutate(
+        product_of_usa2 = case_when(
+            product_of_usa == 1 ~ 'Domestic',
+            TRUE ~ 'Import'
+        )
+    ) %>%
+    count(department, product_of_usa2)
 
 
 
@@ -266,88 +252,106 @@ wegmans %>%
 ## Break popularity into high (4-5) and low (1-3).  What is the average price by
 ##  high and low popularity and domestic/foreign items?  Arrange the results 
 ## from highest to lowest average price.
-
-.(15)
-# wegmans %>%
-#     mutate(
-#         popularity2 = case_when(popularity >= 4 ~ 'High', TRUE ~ 'Low'),
-#         product_of_usa2 = case_when(
-#             product_of_usa == 1 ~ 'Domestic', 
-#             TRUE ~ 'Import'
-#         )  
-#     ) %>%
-#     group_by(popularity2, product_of_usa2) %>%
-#     summarize(ave_price = mean(new_price)) %>%
-#     arrange(desc(ave_price))
+wegmans %>%
+    mutate(
+        popularity2 = case_when(popularity >= 4 ~ 'High', TRUE ~ 'Low'),
+        product_of_usa2 = case_when(
+            product_of_usa == 1 ~ 'Domestic',
+            TRUE ~ 'Import'
+        )
+    ) %>%
+    group_by(popularity2, product_of_usa2) %>%
+    summarize(ave_price = mean(new_price)) %>%
+    arrange(desc(ave_price))
 
 
 
 ## What is the average number of items across departments?
-
-.(16)
-# wegmans %>%
-#     summarize(
-#         departments = length(unique(department)),
-#         department_total_items = length(department)    
-#     ) %>%
-#     mutate(ave_items_per_dept = department_total_items/departments)
+wegmans %>%
+    summarize(
+        departments = length(unique(department)),
+        department_total_items = length(department)
+    ) %>%
+    mutate(ave_items_per_dept = department_total_items/departments)
 
 
 
 
 ## Which item in each department has the largest profit margin?
+##  Hold the phone you showed me that beverage had 3 items that 
+##      were equal to the max of 65 cents....
+##  BEWARE!!! Of floating point precision.
+wegmans %>%
+    mutate(change = new_price - wholesale) %>%
+    group_by(department) %>%
+    filter(change == max(change))
 
-.(17)
-# wegmans %>%
-#     mutate(change = new_price - wholesale) %>%
-#     group_by(department) %>%
-#     filter(change == max(change))
+   
+## Floating point detour:
+##   This should be equal right? :-@
+sqrt(2)^2 == 2
+
+## Here's how the number is actually stored.
+sprintf("%.20f", sqrt(2)^2)
+
+## So to check for equality of numeric/floats...
+near(sqrt(2)^2, 2)
+   
+## For more on floating point precision see:
+## browseURL('https://docs.python.org/3/tutorial/floatingpoint.html')
+
+## back to our regularly scheduled program...
+wegmans %>%
+    mutate(change = new_price - wholesale) %>%
+    group_by(department) %>%
+    dplyr::filter(near(change, max(change)))
 
 
+    
+    
 
-
-## Which department has the biggest difference int the highest and lowest priced
+## Which department has the biggest difference in the highest and lowest priced
 ##   items?
-
-.(18)
-# wegmans %>%
-#     group_by(department) %>%
-#     summarize(difference = max(new_price) - min(new_price)) %>%
-#     arrange(desc(difference))
+wegmans %>%
+    group_by(department) %>%
+    summarize(difference = max(new_price) - min(new_price)) %>%
+    arrange(desc(difference))
 
 
 
 
 ## Which item had the largest percentage increase in price?
 
-.(19)
+.(5)
 # wegmans %>%
-#     mutate(per_change = round(100*(new_price - old_price)/old_price, 1)) %>%
+#     mutate(per_change = 100 * (new_price - old_price)/old_price) %>%
 #     arrange(desc(per_change))
 
 
 
-## Create a price_bucket variable (break at 2.50 & 3.25), group_by on it, summarize
-## Are cheaper products more popular? 
-
-.(20)
-# wegmans %>%
-#     mutate(
-#         price_bucket = cut(
-#             new_price, 
-#             breaks = c(0, 2.5, 3.25, 5), 
-#             labels = c('low', 'medium', 'high')
-#         )
-#     ) %>%
-#     group_by(price_bucket) %>%
-#     summarize(ave_popularity = mean(popularity))
 
 
 
+## Create a price_bucket variable (break at 2.50 & 3.25) [low, medium, high]
+## Are cheaper products more popular? (We'll group_by on price_bucket & 
+##   find the average popularity per group)
+wegmans %>%
+    mutate(
+        price_bucket = cut(
+            new_price,
+            breaks = c(0, 2.5, 3.25, 5),
+            labels = c('low', 'medium', 'high')
+        )
+    ) %>%
+    group_by(price_bucket) %>%
+    summarize(ave_popularity = mean(popularity))
 
-## Which department had the largest average decrease in price?
 
-.(21)
+
+
+## Which department had the lowest average change in price?
+
+.(6)
 # wegmans %>%
 #     mutate(change = new_price - old_price) %>%
 #     group_by(department) %>%
@@ -357,32 +361,35 @@ wegmans %>%
 
 
 
-## What are the earliest and oldest last shipment shipments by department?  How
-##   many days difference are between the two dates?  Order the output by this 
-##   difference.
+## What are the most recent and oldest last shipment dates by department?  
+## How many days difference are between the two dates?  Order the output by 
+##   this difference.
+wegmans %>%
+    group_by(department) %>%
+    summarize(
+        oldest = min(last_shipment),
+        newest = max(last_shipment)
+    ) %>%
+    mutate(difference = difftime(newest, oldest, units = "days")) %>%
+    arrange(difference)
 
-.(22)
+
+
+
+
+## Which department had the largest percent increase in price?
+
+.(7)
 # wegmans %>%
 #     group_by(department) %>%
 #     summarize(
-#         oldest = min(last_shipment),
-#         newest = max(last_shipment)
+#         total_old = sum(old_price), 
+#         total_new = sum(new_price)
 #     ) %>%
-#     mutate(difference = difftime(newest, oldest, units = "days")) %>%
-#     arrange(difference)
+#     mutate(percent_increase = 100 * (total_new - total_old)/total_old) %>%
+#     arrange(percent_increase)
 
 
-
-
-
-## Which department had the largest percent increase?
-
-.(23)
-# wegmans %>%
-#     group_by(department) %>%
-#     summarize(total_old = sum(old_price), total_new = sum(new_price)) %>%
-#     mutate(prop_increase = 100*(total_new - total_old)/total_old) %>%
-#     arrange(prop_increase)
 
 
 

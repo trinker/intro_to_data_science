@@ -84,10 +84,14 @@ library(tidyverse)
 
 
 ## How many traffic tickets were issued each year?
+## Have the number of tickets remained constant across the three years?
 # traffic_violations_clean %>%
 #    count(year_of_stop)
 
-## Have the number of tickets remained constant across the three years?
+
+
+
+## Are there certain days of the week that traffic tickets are likely to happen?
 # traffic_violations_clean %>%
 #     count(day_of_week)
 
@@ -97,7 +101,7 @@ library(tidyverse)
 #         geom_bar()
 
 
-## Are there certain days of the week that traffic tickets are likely to happen?
+## Are there certain times of the day that traffic tickets are likely to happen?
 # traffic_violations_clean %>%
 #     mutate(hour_of_day = factor(hour_of_day)) %>%
 #     ggplot(aes(hour_of_day)) +
@@ -125,8 +129,8 @@ library(tidyverse)
 #!         geom_point()
 
 
+## I wonder what the interaction between day of week and time of day looks like.
 
-## Are there certain times of the day and/or days of the week that traffic tickets are likely to happen?
 # traffic_violations_clean  %>%
 #     mutate(
 #         hour_of_day = factor(hour_of_day)

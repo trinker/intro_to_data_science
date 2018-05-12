@@ -2,9 +2,13 @@
 \contentsline {section}{Approach}{1}{section*.3}
 \contentsline {section}{Required Texts}{2}{section*.4}
 \contentsline {section}{Learning Outcomes}{2}{section*.5}
-\contentsline {section}{Course Schedule}{2}{section*.6}
-\contentsline {section}{Assignments }{3}{section*.7}
-\contentsline {subsection}{What You Won't Learn}{4}{section*.8}
-\contentsline {section}{Required Technologies }{4}{section*.9}
-\contentsline {subsection}{Cheat Sheets}{4}{section*.10}
-\contentsline {section}{Advanced}{5}{section*.11}
+\contentsline {subsection}{What You WILL Learn}{2}{section*.6}
+\contentsline {subsection}{What You WON'T Learn}{2}{section*.7}
+\contentsline {section}{Course Schedule \& Content}{3}{section*.8}
+\contentsline {subsection}{Modules}{3}{section*.9}
+\contentsline {subsection}{Flipped Classroom}{3}{section*.10}
+\contentsline {subsection}{Schedule}{3}{section*.11}
+\contentsline {section}{Assignments }{5}{section*.12}
+\contentsline {section}{Required Technologies }{5}{section*.13}
+\contentsline {subsection}{Cheat Sheets}{5}{section*.14}
+\contentsline {section}{Advanced}{6}{section*.15}

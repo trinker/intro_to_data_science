@@ -64,4 +64,18 @@ make_lesson(
 
 
 
+# make_lesson(
+#     session_number = 12,
+#     instructor_script_control_file = ".bin/control_scripts/12_sql_count_group_by_join.sql"
+# )
+
+
+source('.bin/additional_scripts.R')
+transfer_assignments(i = 1:11)
+transfer_slides(i = 1:11)
+make_student_dir()
+
+
+
+
 

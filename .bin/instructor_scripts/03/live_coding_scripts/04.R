@@ -1,4 +1,4 @@
 wegmans %>%
-    summarize(ave_old = mean(old_price))
+    summarize(departments = length(unique(department)))
 
 

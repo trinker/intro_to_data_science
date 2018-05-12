@@ -84,13 +84,7 @@ library(tidyverse)
 
 
 ## How many traffic tickets were issued each year?
-
-
-
 ## Have the number of tickets remained constant across the three years?
-
-
-
 
 
 
@@ -107,6 +101,7 @@ library(tidyverse)
 
 
 
+## Are there certain times of the day that traffic tickets are likely to happen?
 
 
 
@@ -126,7 +121,16 @@ library(tidyverse)
 
 
 
-## Are there certain times of the day and/or days of the week that traffic tickets are likely to happen?
+
+
+
+
+
+
+
+
+## I wonder what the interaction between day of week and time of day looks like.
+
 
 
 
