@@ -46,8 +46,8 @@ library(tidyverse)
 
 ## Now let's convert this to tidy form via the `gather` function. 
 
-#! profdat %>%
-#!    gather(Course, Rating, c(Course_1_Rating, Course_2_Rating))
+profdat %>%
+   gather(Course, Rating, c(Course_1_Rating, Course_2_Rating))
 
 
 
@@ -72,8 +72,11 @@ buffalo_snow
 
 
 ## Let's tidy the snow data set and fix some variables.
-##   1. Snow is character; why? Fix.
-##   2. Convert the month variable to a factor to control plot ordering
+##   1. Tidy the data set
+##   2. Snow is character; why? Fix.
+##   3. Convert the month variable to a factor to control 
+##        plot ordering (hint: stringr may be useful here)
+##   4. Assign the result to `buff_snow_tall`
 # buffalo_snow %>%
 #     gather()
 
@@ -104,11 +107,13 @@ buffalo_snow
 ##     ggplot(aes(<<CATEGORICAL_1>>, <<CATEGORICAL_2>>, fill = <<NUMERIC>>)) +
 ##         geom_tile()
 
+## As a heatmap
 # buff_snow_tall %>%
 #     ggplot(aes(SEASON, Month, fill = Snow)) +
 #         geom_tile()
 
 
+## As a Bubble plot
 # buff_snow_tall %>%
 #     ggplot(aes(SEASON, Month, size = Snow)) +
 #         geom_point() 
@@ -126,7 +131,7 @@ buffalo_snow
 breed_name
 
 
-## Tidy the `breed_name` data set and assign it to a variable 
+## Tidy the `breed_name` data set and assign it to an object 
 ##  called `breed_name_tall` on your own.
 # breed_name_tall <- breed_name %>%
 #     rename(Total = n) %>%
@@ -143,6 +148,8 @@ breed_name
 #         geom_point() +
 #         scale_size(range = c(1, 10))
 
+
+
 ##============================
 ## Untidying for Understanding
 ##============================
@@ -150,9 +157,9 @@ breed_name
 ##   function `spread` is the opposite of `gather`.  Let's use an example with
 ##   the question:
 ##
-## Are some breeds more likely to be selectively male?
-# nyc_dogs %>%
-#     count(gender, breed)
+## Are some breeds (that have n > 500) more likely to be selectively male?
+nyc_dogs %>%
+    count(gender, breed) 
 
 #! nyc_dogs %>%
 #!     count(gender, breed) %>%
