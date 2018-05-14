@@ -156,7 +156,7 @@ wegmans %>%
 
 
 
-
+## OR... a better way via %in% 
 wegmans %>%
     filter(department %in% c('dairy', 'produce', 'meat'))
 
@@ -244,7 +244,7 @@ wegmans %>%
 
 ## What is the revenue made per item?
 wegmans %>%
-    mutate(change = new_price - wholesale)
+    mutate(revenue = new_price - wholesale)
 
 
 
@@ -252,8 +252,8 @@ wegmans %>%
 ## Note that you can mutate more than one column at once:
 wegmans %>%
     mutate(
-        change = new_price - wholesale,
-        prop_change = change/wholesale
+        revenue = new_price - wholesale,
+        prop_markup = revenue/wholesale
     )
 
 
@@ -261,13 +261,13 @@ wegmans %>%
 
 ## Combing verbs: More power
 ## Select department, item, wholesale, and new_price and answer:
-## What are the items that are marked up at least 25% arrangeged from largest to 
+## What are the items that are marked up at least 25% arranged from largest to 
 ##   smallest percent markup?
 wegmans %>%
     select(department:item, wholesale, new_price) %>%
-    mutate(per_change = 100*(new_price - wholesale)/wholesale) %>%
-    arrange(desc(per_change)) %>%
-    filter(per_change > 25)
+    mutate(per_markup = 100*(new_price - wholesale)/wholesale) %>%
+    arrange(desc(per_markup)) %>%
+    filter(per_markup > 25)
 
 
 

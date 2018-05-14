@@ -49,9 +49,11 @@ jp_health
 ##----------------
 ## Now add the health information from the `jp_health` table to the prior join
 ##    using left joins (retain all records).
-jp_superheroes %>%
-    left_join(jp_publishers, by = "publisher") %>%
-    left_join(jp_health, by = "sex")
+
+.(3)
+# jp_superheroes %>%
+#     left_join(jp_publishers, by = "publisher") %>%
+#     left_join(jp_health, by = "sex")
 
 
 
@@ -61,7 +63,7 @@ jp_superheroes %>%
 ## As noted above, key columns often have different names.  We can use the `by` 
 ##   argument to explicitly set the column names as being keyed.  The `carnegie`
 ##   & `region` data sets are perfect examples of this.  `carnegie` contains a 
-##   column called `REGIONID` that matches a column called `ID` in the `Region`
+##   column called `REGIONID` that matches a column called `ID` in the `region`
 ##   data set.  We can use: `by = c('REGIONID' = 'ID')` for keys with different 
 ##   names.
 ##
@@ -69,12 +71,15 @@ jp_superheroes %>%
 ##   in the `carnegie` data set in order to see the columns from the `region` 
 ##   data set easier.  How many rows are in the table?  Why did it grow?
 
-.(3)
+.(4)
 # carnegie %>%
 #     select(UNITID:CONTROL) %>%
 #     left_join(region, by = c('REGIONID' = 'ID'))
 
 
+##------------------------
+## Gotchas: Growing Tables
+##------------------------
 ## The problem of tables having many to many connections is common.  Be aware
 ##   of your table size before and after the merge.  In this case we have 
 ##   duplicates of the key we're merging on.  We don't actually care about the
@@ -88,9 +93,9 @@ carnegie %>%
     select(UNITID:CONTROL) %>%
     left_join(region2, by = c('REGIONID' = 'ID'))
 
-##------------------------
-## Gotchas: Growing Tables
-##------------------------
+##-----------------------------
+## Gotchas: Different Key Types
+##-----------------------------
 ## Sometimes we do expect the table to grow.  For example, the `fake_sales_person`
 ##   data set has a sales person an an associated region id.  Let's say we 
 ##   wanted to know the schools each person is responsible for we can join the
@@ -148,7 +153,7 @@ people %>%
 
 ## When we're explicit we get the correct merge but the names are ambiguous.
 
-.(4)
+.(5)
 # people %>%
 #     left_join(pets, by = c('petId' = 'id'))
 
@@ -157,7 +162,7 @@ people %>%
 
 ## Use dplyr's `rename` function to make the names more sensible.
 
-.(5)
+.(6)
 # people %>%
 #     rename(person_name = name) %>%
 #     left_join(
@@ -200,6 +205,7 @@ cereal %>%
     ) %>%
     select(name, mfr, mfr2)
 
+
 ## This is often the right tool but for some tasks the recoding is too numerous 
 ##   and requires a great deal of time to type.  Often this recoding exists as a 
 ##   table or a recoding table can easily be made and a left join can be used to 
@@ -236,12 +242,12 @@ bp_cyl_4
 ##   - What happened to the columns that we missing in some table?
 ##   - What information is lost (hint the table names)?
 
-.(6)
+.(7)
 # bind_rows(bp_cyl_8, bp_cyl_6, bp_cyl_4)
 
 ## How can we add the lost cylinder information back?
 
-.(7)
+.(8)
 # bind_rows(
 #     bp_cyl_8 %>%
 #         mutate(cyl = 8), 
@@ -285,6 +291,8 @@ dat_1
 dat_2
 dat_3
 
-## Bind them together with `bind_rows`
-bind_cols(dat_1, dat_2, dat_3)
+## Bind them together with `bind_cols`
+
+.(9)
+# bind_cols(dat_1, dat_2, dat_3)
 

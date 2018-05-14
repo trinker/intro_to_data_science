@@ -25,15 +25,14 @@ install_github('trinker/exampledata')
 
 ## Now load it via the `library()`  function and view the `wegmans` data set 
 ##   with the `View()` function. 
-library(exampledata)
-View(wegmans)
+
 
 
 ## How can we learn more about the built in data set?
-?wegmans
+
 
 ## Load the 'tidyverse' package:
-library(tidyverse)
+
 
 
 
@@ -67,7 +66,7 @@ rnorm(20) %>%
 ##=======
 ##  We select variables/columns
 wegmans %>%
-    select(department, item, new_price, wholesale, old_price ,new_price, popularity)
+    select(department, item, new_price)
 
 
 
@@ -79,7 +78,7 @@ wegmans %>%
 
 ## We can use negation to drop columns.
 wegmans %>%
-    select(-department, -weight)
+    select(-department)
 
 
 
@@ -133,8 +132,7 @@ wegmans %>%
 
 ## What are the items between $2.75 and $3.00?
 wegmans %>%
-    filter(new_price >= 2.75) %>%
-    filter(new_price <= 3.00)
+    filter(new_price >= 2.75 & new_price <= 3.00)
 
 
 
@@ -147,7 +145,7 @@ wegmans %>%
 
 ## What items are 5 stars popular and cost less than $3.50?
 wegmans %>%
-    filter(popularity == 5 & new_price > 3.50)
+    filter(popularity == 5 & new_price < 3.50)
 
 
 
@@ -158,7 +156,7 @@ wegmans %>%
 
 
 
-
+## OR... a better way via %in% 
 wegmans %>%
     filter(department %in% c('dairy', 'produce', 'meat'))
 
@@ -198,7 +196,7 @@ wegmans %>%
 
 ## What are the cheapest to most expensive items in each department? 
 wegmans %>%
-    arrange(desc(department), desc(new_price))
+    arrange(department, new_price)
 
 
 
@@ -246,8 +244,7 @@ wegmans %>%
 
 ## What is the revenue made per item?
 wegmans %>%
-    mutate(revenue = new_price - wholesale) %>%
-    select(revenue, everything())
+    mutate(revenue = new_price - wholesale)
 
 
 
@@ -264,16 +261,13 @@ wegmans %>%
 
 ## Combing verbs: More power
 ## Select department, item, wholesale, and new_price and answer:
-## What are the items that are marked up at least 25% arrangeged from largest to 
+## What are the items that are marked up at least 25% arranged from largest to 
 ##   smallest percent markup?
-foo <- wegmans %>%
+wegmans %>%
     select(department:item, wholesale, new_price) %>%
-    mutate(per_change = 100*(new_price - wholesale)/wholesale, w = '4') %>%
-    arrange(desc(per_change)) %>%
-    filter(per_change > 25) 
-
-foo %>%
-    mutate(per_change2 = per_change * 2)
+    mutate(per_markup = 100*(new_price - wholesale)/wholesale) %>%
+    arrange(desc(per_markup)) %>%
+    filter(per_markup > 25)
 
 
 

@@ -1,4 +1,5 @@
-people %>%
-    left_join(pets, by = c('petId' = 'id'))
+carnegie %>%
+    select(UNITID:CONTROL) %>%
+    left_join(region, by = c('REGIONID' = 'ID'))
 
 

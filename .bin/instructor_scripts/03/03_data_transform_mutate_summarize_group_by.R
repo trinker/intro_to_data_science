@@ -21,9 +21,6 @@
 ## Load dependencies
 ##==================
 ## Load the exampledata & tidyverse packages
-library(exampledata)
-library(tidyverse)
-
 
 
 
@@ -47,16 +44,6 @@ utils::data(package = 'exampledata')
 ## Task 4: Assign to an object named `margins`.
 ## Task 5: Use the `View()` function to inspect the data set
 
-margins <- wegmans %>%
-    mutate(
-        markup = new_price - wholesale,
-        expected_units = 100 * popularity,
-        profit = expected_units * markup
-    ) %>%
-    arrange(department, desc(profit)) %>% 
-    select(department, item, new_price, wholesale, popularity, markup:profit) 
-
- View(margins)
 
 
 
@@ -113,14 +100,14 @@ wegmans %>%
 
 ## How many total items are there?
 wegmans %>%
-    summarize(total_items = n())
+    summarize(total_items = length(item))
 
 
 
 
 ## How many unique departments are there?
 wegmans %>%
-    summarize(departments = length(unique(department)))
+    summarize(departments = length(department))
 
 
 
@@ -130,14 +117,14 @@ wegmans %>%
 
 ## What is the percent of items made in the United States?
 wegmans %>%
-    summarize(percent_usa = 100 * mean(product_of_usa  == 1))
+    summarize(percent_usa = 100 * mean(product_of_usa))
 
 
 
 
 ## What is the standard deviation of weights?
 wegmans %>%
-    summarize(sdpoo = sd(weight))
+    summarize(sd = sd(weight))
 
 
 
@@ -189,7 +176,8 @@ wegmans %>%
 
 ## How many items are in each department?
 wegmans %>%
-    count(department)
+    group_by(department) %>%
+    summarize(items = length(item))
 
     
     
@@ -210,9 +198,9 @@ wegmans %>%
     mutate(
         product_of_usa2 = case_when(
             product_of_usa == 1 ~ 'Domestic',
-            product_of_usa == 0 ~ 'Import'
+            TRUE ~ 'Import'
         )
-    ) %>% 
+    ) %>%
     group_by(product_of_usa2) %>%
     summarize(
         ave_price = mean(new_price)
@@ -263,7 +251,7 @@ wegmans %>%
             product_of_usa == 1 ~ 'Domestic',
             TRUE ~ 'Import'
         )
-    ) %>% #View()
+    ) %>%
     group_by(popularity2, product_of_usa2) %>%
     summarize(ave_price = mean(new_price)) %>%
     arrange(desc(ave_price))

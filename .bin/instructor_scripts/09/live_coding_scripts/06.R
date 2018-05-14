@@ -1,3 +1,9 @@
-bind_rows(bp_cyl_8, bp_cyl_6, bp_cyl_4)
+people %>%
+    rename(person_name = name) %>%
+    left_join(
+        pets %>% 
+            rename(pet_type = name), 
+        by = c('petId' = 'id')
+    )
 
 

@@ -223,7 +223,7 @@ starwars %>%
     ggplot(aes(height, mass)) +
     geom_point()
 
-## Quick Styline Detour Demo: Multiple aesthetics set to constant values 
+## Quick Styling Detour Demo: Multiple aesthetics set to constant values 
 ##   (alpha useful for overplotting)
 starwars %>%
     filter(mass < 250) %>%
