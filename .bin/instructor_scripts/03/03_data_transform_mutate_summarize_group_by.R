@@ -245,6 +245,7 @@ wegmans %>%
 ##  high and low popularity and domestic/foreign items?  Arrange the results 
 ## from highest to lowest average price.
 wegmans %>%
+    select(popularity, product_of_usa, new_price) %>%
     mutate(
         popularity2 = case_when(popularity >= 4 ~ 'High', TRUE ~ 'Low'),
         product_of_usa2 = case_when(
